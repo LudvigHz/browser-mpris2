@@ -74,4 +74,4 @@ class Titb extends EventEmitter {
     notifyLog (args) {
         this.logs.push(args);
     }
-};
+}
