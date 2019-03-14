@@ -75,12 +75,30 @@ class Player {
     }
 
     /**
-     * Is the media playing?
+     * Returns true if the media is not paused
      *
      * @returns {boolean}
      */
     isPlaying () {
         return !this.element.paused;
+    }
+
+    /**
+     * Returns true if the media is paused.
+     *
+     * @return {boolean}
+     */
+    isPaused () {
+        return this.element.paused && this.element.currentTime > 0;
+    }
+
+    /**
+     * Return true if the media is paused and current time is 0.
+     *
+     * @return {boolean}
+     */
+    isStopped () {
+        return this.element.paused && this.element.currentTime === 0;
     }
 
     /**

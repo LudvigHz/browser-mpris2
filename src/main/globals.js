@@ -83,10 +83,12 @@ const LoopStatus = {
  * @constant {Object}
  * @property {string} PLAYING=Playing - the media is playing
  * @property {string} PAUSED=Paused - the media is paused
+ * @property {string} STOPPED=Stopped - the media is stopped
  */
 const PlaybackStatus = {
     PLAYING: 'Playing',
-    PAUSED: 'Paused'
+    PAUSED: 'Paused',
+    STOPPED: 'Stopped'
 };
 
 /**

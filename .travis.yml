@@ -1,12 +1,23 @@
 language: node_js
 node_js:
   - 8
+branches:
+  only:
+    - master
+    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/ #also run on tags
+
+addons:
+  apt:
+    update: true
+    packages:
+      - jq
 
 install:
   - npm install esdoc esdoc-standard-plugin esdoc-ecmascript-proposal-plugin
 
 script:
   - ./node_modules/.bin/esdoc
+  - ./build.sh
 
 deploy:
   provider: pages
