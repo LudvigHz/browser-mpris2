@@ -21,15 +21,22 @@ before_script:
 
 script:
   - karma start --single-run --browsers Firefox
-  - ./build.sh
 
 before_deploy:
   - ./node_modules/.bin/esdoc
+  - ./build.sh $TRAVIS_TAG
 
 deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
-  local_dir: docs
-  on:
-    branch: master
+  - provider: pages
+    skip_cleanup: true
+    github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+    local_dir: docs
+    on:
+      branch: master
+  - provider: releases
+    api_key: $GITHUB_TOKEN
+    file_glob: true
+    file: browser-mpris2-*.zip
+    skip_cleanup: true
+    on:
+      tags: true

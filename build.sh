@@ -1,7 +1,7 @@
 #!/bin/bash
-# Compile all source codes into dist/ folder
+# Compile all javascript source codes into dist/ folder
 
-out="dist/"
+out="extension/"
 lang_out="ECMASCRIPT_2015"
 
 function title() {
@@ -39,6 +39,11 @@ cat manifest.json | \
 # replace all instances of src/ with empty string
 sed -i -e 's,src/,,g' ${out}manifest.json
 echo "Generated ${out}manifest.json ✓"
+
+# Compress extension and native to a release zip
+title "Step 6: Zip Release"
+zip -r "browser-mpris2-$1.zip" ${out} native/
+echo "Created realease .zip for version $1 ✓"
 
 title "DONE ✓"
 exit 0;
