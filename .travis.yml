@@ -21,10 +21,10 @@ before_script:
 
 script:
   - karma start --single-run --browsers Firefox
+  - ./build.sh
 
 before_deploy:
   - ./node_modules/.bin/esdoc
-  - ./build.sh
 
 deploy:
   provider: pages
