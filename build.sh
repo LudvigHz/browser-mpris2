@@ -12,7 +12,7 @@ function title() {
 
 title "Step 1: Base Scripts"
 npx google-closure-compiler --js='src/main/**.js' --js_output_file="${out}base.js" --language_out=${lang_out}
-echo "Compiled all files in src/media into ${out}base.js ✓"
+echo "Compiled all files in src/media into ${out}base.js ✓";
 
 title "Step 2: Provider Scripts"
 for filename in src/providers/*.js; do

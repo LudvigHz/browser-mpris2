@@ -38,14 +38,14 @@ class Host {
          */
         this.source = 'browser';
 
-        this.port.onMessage.addListener((r, s, sr) => this.messageListener(r, s, sr));
+        this.port.onMessage.addListener((r, s, sr) => this.messageListener(r));
     }
 
     /**
      * Send a message to host app
      *
      * @param {MessageType} type
-     * @param {Object} [payload]
+     * @param {Object|number} [payload]
      */
     sendMessage (type, payload) {
         this.port.postMessage({
@@ -61,7 +61,7 @@ class Host {
     change () {
         if (this.playback.activePlayer) {
             let payload = this.carrier.requestPayload(this.playback);
-            if (Object.keys(payload).length)
+            if (Object.keys(payload || {}).length)
                 this.sendMessage(
                   MessageType.CHANGE,
                   payload
@@ -82,7 +82,7 @@ class Host {
     /**
      *
      * @param {MessageMethod} method
-     * @param {Object} args
+     * @param {*} args
      */
     return (method, args) {
         this.port.postMessage({
@@ -142,12 +142,12 @@ class Host {
      *
      * @param {string} _ - org.mpris.MediaPlayer2.Player
      * @param {MessageProperty} propName - property that should be returned
-     * @returns {number}
+     * @returns {number|void}
      */
     get (_, propName) {
         switch (propName) {
             case MessageProperty.POSITION:
-                return this.playback.getPosition();
+                return this.playback.getPosition() || 0;
         }
     }
 
@@ -157,24 +157,24 @@ class Host {
      *
      * @param {string} _ - org.mpris.MediaPlayer2.Player
      * @param {MessageProperty} propName - property to set
-     * @param {*} newValue - depends on the property to set
+     * @param {number|LoopStatus|boolean} [newValue] - depends on the property to set
      */
     set (_, propName, newValue) {
         switch (propName) {
             case MessageProperty.RATE:
-                this.playback.setRate(newValue);
+                this.playback.setRate(Number(newValue));
                 break;
 
             case MessageProperty.VOLUME:
-                this.playback.setVolume(newValue);
+                this.playback.setVolume(Number(newValue));
                 break;
 
             case MessageProperty.SHUFFLE:
-                this.playback.setShuffle(newValue);
+                this.playback.setShuffle(Boolean(newValue));
                 break;
 
             case MessageProperty.LOOP_STATUS:
-                this.playback.setLoopStatus(newValue);
+                this.playback.setLoopStatus(Object.values(LoopStatus).find(e => e === newValue));
                 break;
 
             case MessageProperty.FULL_SCREEN:

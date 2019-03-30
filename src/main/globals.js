@@ -1,6 +1,6 @@
 /**
  *
- * @type {Object}
+ * @enum {string}
  * @property {string} CHANGE=changed - whether a mrpis2 property has changed
  * @property {string} RETURN=return - if we are returning an expected value
  * @property {string} SEEK=seeked - seeking
@@ -15,7 +15,7 @@ const MessageType = {
 
 /**
  *
- * @constant {Object}
+ * @enum {string}
  * @property {string} GET=Get - request a property from the client
  * @property {string} SET=Set - request to set a property in the client
  * @property {string} PLAY=Play - request to start playing the current media
@@ -42,7 +42,7 @@ const MessageMethod = {
 
 /**
  *
- * @constant {Object}
+ * @enum {string}
  * @property {string} POSITION=Position - the time of playback
  * @property {string} RATE=Rate - the speed rate of playback
  * @property {string} VOLUME=Volume - the volume of playback
@@ -66,7 +66,7 @@ const MessageProperty = {
  * <b>PLAYLIST</b> looping should be implemented by provider
  *
  *
- * @constant {Object}
+ * @enum {string}
  * @property {string} NONE=None - default playback
  * @property {string} TRACK=Track - playback will loop current track
  * @property {string} PLAYLIST=Playlist - playback will loop current playlist
@@ -115,4 +115,5 @@ const PlaybackStatus = {
  * @property {number} [Rate] - the playback speed of the media
  * @property {Metadata} [Metadata] - the media specific information
  */
+let Payload;
 

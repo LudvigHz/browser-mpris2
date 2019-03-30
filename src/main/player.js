@@ -33,9 +33,9 @@ class Player {
         /**
          * A URL with the media baseURI
          * It's updated in {@link refresh} whenever metadata changes
-         * @type {URL}
+         * @type {Object}
          */
-        this.URL = new URL(element.baseURI);
+        this.URL = new URL(element.baseURI || '');
         this.initDefaultMediaListeners();
     }
 
@@ -55,7 +55,7 @@ class Player {
      * Also trigger a {@link this.host.start} event on the {@link Host}.
      */
     refresh () {
-        this.URL = new URL(this.element.baseURI);
+        this.URL = new URL(this.element.baseURI || '');
         if (this.isValid()) {
             this.element.addEventListener('pause', () => this.host.change());
             this.element.addEventListener('playing', () => this.host.change());
@@ -68,7 +68,7 @@ class Player {
 
     /**
      * Get the id of the player
-     * @returns {string} the elements source
+     * @returns {null|string} the elements source
      */
     getId () {
         return this.element.baseURI;
@@ -155,7 +155,7 @@ class Player {
     /**
      * Get the title of the player. The page's title by default.
      *
-     * @returns {string}
+     * @returns {null|string}
      */
     getTitle () {
         return this.page.getTitle();
@@ -280,7 +280,7 @@ class Player {
 
     /**
      * Get the elements url
-     * @returns {string}
+     * @returns {null|string}
      */
     getUrl () {
         return this.element.baseURI;
