@@ -29,7 +29,7 @@ class NetflixPlayer extends Player {
     }
 
     isValid () {
-        return this.URL.pathname.includes('/watch') && super.isValid();
+        return this.URL.pathname.indexOf('/watch') !== -1 && super.isValid();
     }
 
 }

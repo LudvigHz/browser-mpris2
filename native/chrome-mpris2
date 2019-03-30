@@ -412,41 +412,6 @@ class Browser(MediaPlayer2):
         self.CanGoPrevious = False
 
 
-@inheritdocstring
-class SoundCloud(MediaPlayer2):
-    def __init__(self, conn, name, tabid):
-        super().__init__(conn, name, tabid)
-
-        self.CanQuit = True
-        self.CanRaise = True
-        self.CanSetFullscreen = False
-        self.HasTrackList = False
-        self.SupportedMimeTypes = []
-        self.SupportedUriSchemes = ["http", "https"]
-
-        self.Fullscreen = False
-        self.LoopStatus = "None"
-        self.Metadata = {}
-
-        self.PlaybackStatus = "Stopped"
-        self.Rate = 1
-        self.Shuffle = False
-        self.Volume = 1
-
-        self.Identity = "soundcloud"
-        self.CanControl = True
-        self.CanPlay = True
-        self.CanPause = True
-        self.CanSeek = True
-        self.CanSetFullscreen = False
-
-        self.MinimumRate = 1
-        self.MaximumRate = 1
-
-        self.CanGoNext = False
-        self.CanGoPrevious = False
-
-
 players = {
     "browser": Browser
 }

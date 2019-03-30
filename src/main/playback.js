@@ -48,7 +48,7 @@ class Playback {
 
     /**
      * Get the volume of playback
-     * @returns {number}
+     * @returns {null|number}
      */
     getVolume () {
         return this.activePlayer && this.activePlayer.getVolume();
@@ -66,7 +66,7 @@ class Playback {
 
     /**
      * Get the rate of playback
-     * @returns {number}
+     * @returns {null|number}
      */
     getRate () {
         return this.activePlayer && this.activePlayer.getRate();
@@ -186,7 +186,7 @@ class Playback {
     /**
      * **COMMAND** Get active player's position
      *
-     * @returns {number}
+     * @returns {null|number}
      */
     getPosition () {
         return this.activePlayer !== null ? this.activePlayer.getPosition() : null;
@@ -215,7 +215,7 @@ class Playback {
     /**
      * Get the identity of playback, by default it is the site's domain
      *
-     * @returns {string}
+     * @returns {null|string}
      */
     getIdentity () {
         return this.activePlayer && this.activePlayer.getSiteDomain();

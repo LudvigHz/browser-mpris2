@@ -60,7 +60,7 @@ class YouTubePlayer extends Player {
      * @returns {string}
      */
     getCover () {
-        if (this.getId().includes('/'))
+        if (this.getId().indexOf('/') !== -1)
             return super.getCover();
         return `https://i.ytimg.com/vi/${this.getId()}/hqdefault.jpg`;
     }
@@ -99,10 +99,10 @@ class YouTubePlayback extends Playback {
 
     setVolume (volume) {
         super.setVolume(volume);
-        if (volume === 0 && this.controls.volumeButton && this.controls.volumeButton.title.includes('Mute'))
+        if (volume === 0 && this.controls.volumeButton && this.controls.volumeButton.title.indexOf('Mute') !== -1)
             this.controls.volumeButton.click();
         else {
-            if (this.controls.volumeButton && this.controls.volumeButton.title.includes('Unmute'))
+            if (this.controls.volumeButton && this.controls.volumeButton.title.indexOf('Unmute') !== -1)
                 this.controls.volumeButton.click();
 
             if (this.controls.volumeHandle) {

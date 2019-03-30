@@ -2,12 +2,18 @@ language: node_js
 node_js:
   - 8
 
+addons:
+  apt:
+    update: true
+    packages:
+      - jq
+
 cache:
   directories:
     - node_modules
 
 install:
-  - npm install esdoc esdoc-standard-plugin esdoc-ecmascript-proposal-plugin karma karma-jasmine karma-firefox-launcher karma-chrome-launcher jasmine-core karma-coverage
+  - npm install esdoc esdoc-standard-plugin esdoc-ecmascript-proposal-plugin karma karma-jasmine karma-firefox-launcher karma-chrome-launcher jasmine-core karma-coverage google-closure-compiler
 
 before_script:
   - export DISPLAY=:99.0
@@ -18,11 +24,19 @@ script:
 
 before_deploy:
   - ./node_modules/.bin/esdoc
+  - ./build.sh $TRAVIS_TAG
 
 deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
-  local_dir: docs
-  on:
-    branch: master
+  - provider: pages
+    skip_cleanup: true
+    github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+    local_dir: docs
+    on:
+      branch: master
+  - provider: releases
+    api_key: $GITHUB_TOKEN
+    file_glob: true
+    file: browser-mpris2-*.zip
+    skip_cleanup: true
+    on:
+      tags: true

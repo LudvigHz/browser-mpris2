@@ -150,7 +150,7 @@ class Page {
      */
     checkForMediaElements () {
         this.document.querySelectorAll('video,audio')
-          .forEach(player => page.registerPlayer(player));
+          .forEach(player => this.registerPlayer(player));
     }
 
     /**
@@ -174,7 +174,7 @@ class Page {
     /**
      * Get the page's title
      *
-     * @returns {string}
+     * @returns {null|string}
      */
     getTitle () {
         return this.document.title;
