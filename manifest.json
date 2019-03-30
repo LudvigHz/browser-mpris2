@@ -15,7 +15,7 @@
       "js": [
         "src/main/globals.js",
         "src/main/player.js",
-        "src/main/messenger.js",
+        "src/main/carrier.js",
         "src/main/playback.js",
         "src/main/host.js",
         "src/main/page.js"
@@ -24,9 +24,17 @@
       "all_frames": true
     },
     {
-      "matches": ["*://*.youtube.com/*", "*://youtube.com/*"],
+      "matches": ["*://www.youtube.com/*", "*://youtube.com/*"],
       "js": [
         "src/providers/youtube.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    },
+    {
+      "matches": ["*://music.youtube.com/*"],
+      "js": [
+        "src/providers/youtube-music.js"
       ],
       "run_at": "document_start",
       "all_frames": true

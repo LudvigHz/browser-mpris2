@@ -128,6 +128,15 @@ class Player {
     }
 
     /**
+     * Is the media muted?
+     *
+     * @return {boolean}
+     */
+    isMuted () {
+        return this.element.muted;
+    }
+
+    /**
      * Set the playback rate
      * @param {number} rate
      */
@@ -203,13 +212,7 @@ class Player {
      * Play media element
      */
     play () {
-        this.element.play()
-          .then(() => {
-              console.debug('playing');
-          })
-          .catch((e) => {
-              console.debug(e);
-          });
+        return this.element.play();
     }
 
     /**

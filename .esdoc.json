@@ -11,7 +11,24 @@
         "manual": {
           "index": "./manual/index.md",
           "files": [
-            "./manual/youtube.md"
+            "./manual/how_to.md",
+            "./manual/youtube.md",
+            "./manual/netflix.md",
+            "./manual/soundcloud.md"
+          ]
+        },
+        "test": {
+          "source": "./tests/",
+          "interfaces": [
+            "describe",
+            "it"
+          ],
+          "includes": [
+            "(spec|Spec)\\.js$"
+          ],
+          "excludes": [
+            "utils/",
+            "\\.config\\.js$"
           ]
         }
       }
