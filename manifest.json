@@ -1,30 +1,40 @@
 {
   "manifest_version": 2,
-
-  "name": "browser-mpris2",
+  "name": "browser-mpris2-debug",
   "description": "Implements the MPRIS2 interface for Chrome and Firefox",
   "version": "0.2.1",
-
+  "browser_action": {
+    "default_title": "Browser MPRIS2",
+    "default_popup": "popup.html"
+  },
   "background": {
-    "scripts": ["background.js"],
+    "scripts": [
+      "background.js",
+      "updater.js"
+    ],
     "persistent": false
   },
   "content_scripts": [
     {
-      "matches": ["*://*/*"],
+      "matches": [
+        "*://*/*"
+      ],
       "js": [
-        "src/main/globals.js",
-        "src/main/player.js",
-        "src/main/carrier.js",
-        "src/main/playback.js",
-        "src/main/host.js",
-        "src/main/page.js"
+        "src/browser/main/globals.js",
+        "src/browser/main/player.js",
+        "src/browser/main/carrier.js",
+        "src/browser/main/playback.js",
+        "src/browser/main/host.js",
+        "src/browser/main/page.js"
       ],
       "run_at": "document_start",
       "all_frames": true
     },
     {
-      "matches": ["*://www.youtube.com/*", "*://youtube.com/*"],
+      "matches": [
+        "*://www.youtube.com/*",
+        "*://youtube.com/*"
+      ],
       "js": [
         "src/providers/youtube.js"
       ],
@@ -32,33 +42,42 @@
       "all_frames": true
     },
     {
-      "matches": ["*://music.youtube.com/*"],
+      "matches": [
+        "*://music.youtube.com/*"
+      ],
       "js": [
-        "src/providers/youtube-music.js"
+        "src/browser/providers/youtube-music.js"
       ],
       "run_at": "document_start",
       "all_frames": true
     },
     {
-      "matches": ["*://soundcloud.com/*"],
+      "matches": [
+        "*://soundcloud.com/*"
+      ],
       "js": [
-        "src/providers/soundcloud.js"
+        "src/browser/providers/soundcloud.js"
       ],
       "run_at": "document_start",
       "all_frames": true
     },
     {
-      "matches": ["*://netflix.com/*", "*://*.netflix.com/*"],
+      "matches": [
+        "*://netflix.com/*",
+        "*://*.netflix.com/*"
+      ],
       "js": [
-        "src/providers/netflix.js"
+        "src/browser/providers/netflix.js"
       ],
       "run_at": "document_start",
       "all_frames": true
     },
     {
-      "matches": ["*://*/*"],
+      "matches": [
+        "*://*/*"
+      ],
       "js": [
-        "src/init.js"
+        "src/browser/init.js"
       ],
       "run_at": "document_start",
       "all_frames": true

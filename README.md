@@ -26,14 +26,14 @@ Then, in Chrome, go to `Tools > Extensions` (or `chrome://extensions`), enable `
 
 Once the extension loaded copy the extension ID (ie: `pbipjpimbmchphdddpkimpegkgnbepdj`).
 
-Next, place [chrome-mpris2](native/chrome-mpris2) somewhere in your `$PATH`.
+Next, place [chrome-mpris2](src/native/chrome-mpris2) somewhere in your `$PATH`.
 
 ie: (from the root of the repo)
 ```text
 ln -s $PWD/native/chrome-mpris2 ~/bin/chrome-mpris2
 ```
 
-And run [install-chrome.py](native/install-chrome.py) giving it the extension ID and optionally the path (not just the directory) of your just-installed chrome-mpris2 if you installed elsewhere.  This will check that you have all the dependencies and tell Chrome about chrome-mpris2 (so that the plugin can use it).
+And run [install-chrome.py](src/native/install-chrome.py) giving it the extension ID and optionally the path (not just the directory) of your just-installed chrome-mpris2 if you installed elsewhere.  This will check that you have all the dependencies and tell Chrome about chrome-mpris2 (so that the plugin can use it).
 ```text
 ./install-chrome.py EXTENSION_ID [PATH]
 ```

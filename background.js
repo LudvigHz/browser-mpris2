@@ -4,7 +4,7 @@ let pages = [];
 
 chrome.runtime.onConnect.addListener(function (page) {
     if (!connections++)
-        host = chrome.runtime.connectNative('org.mpris.browser_host');
+        host = chrome.runtime.connectNative('org.mpris.browser_host.debug');
 
     pages.push(page);
     function passMessage (msg) {

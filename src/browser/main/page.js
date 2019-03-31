@@ -43,7 +43,7 @@ class Page {
          * Upon load of a page this property can be used by providers
          * to cache html elements that are likely to be used repeatedly.
          *
-         * @see src/providers/soundcloud.js - for an example.
+         * @see src/browser/providers/soundcloud.js - for an example.
          *
          * @type {Object.<string, HTMLElement>}
          */

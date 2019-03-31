@@ -26,11 +26,11 @@ Edit the [manifes.json](https://github.com/Lt-Mayonesa/browser-mpris2/blob/maste
 ```
 
 ## 3. Write your provider
-Edit your provider's .js file by extending and re-assigning (see snippets below) any of the classes inside `src/main/` as needed. 
+Edit your provider's .js file by extending and re-assigning (see snippets below) any of the classes inside `src/browser/main/` as needed. 
 
 You are most likely to only need to extend any of the following three.
 
-### [Player](https://lt-mayonesa.github.io/browser-mpris2/class/src/main/player.js~Player.html)
+### [Player](https://lt-mayonesa.github.io/browser-mpris2/class/src/browser/main/player.js~Player.html)
 
 Besides other things a player defines the metadata (title, artis, coverArt, length) that is sent to the mpris2 interface.
 One page will often hold more than one `Player`, but only one of them will be the `activePlayer`.
@@ -46,7 +46,7 @@ class MySitePlayer extends Player {
 Player = MySitePlayer;
 ```
 
-### [Playback](https://lt-mayonesa.github.io/browser-mpris2/class/src/main/playback.js~Playback.html) (singleton)
+### [Playback](https://lt-mayonesa.github.io/browser-mpris2/class/src/browser/main/playback.js~Playback.html) (singleton)
 
 This controls the playback of the page. You should override this class in order to better interact with your site.
 
@@ -61,7 +61,7 @@ class MySitePlayback extends Playback {
 Playback = MySitePlayback;
 ```
 
-### [Page](https://lt-mayonesa.github.io/browser-mpris2/class/src/main/page.js~Page.html) (singleton)
+### [Page](https://lt-mayonesa.github.io/browser-mpris2/class/src/browser/main/page.js~Page.html) (singleton)
 
 A page is in charge of registering and handling media elements.
 

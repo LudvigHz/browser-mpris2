@@ -4,7 +4,13 @@ import json
 import os
 import sys
 
-MESSAGE_HOSTS = os.path.expanduser("~/.mozilla/native-messaging-hosts")
+XDG_CONFIG_HOME = os.environ.get("XDG_CONFIG_HOME",
+                                 default=os.path.expanduser("~/.config"))
+
+BROWSERS = [
+    os.path.join(XDG_CONFIG_HOME, "chromium"),
+    os.path.join(XDG_CONFIG_HOME, "google-chrome"),
+]
 
 
 def die(msg):
@@ -23,8 +29,8 @@ def main(args):
 
     # Chrome's extension IDs are in hexadecimal but using a-p, referred
     # internally as "mpdecimal".            https://stackoverflow.com/a/2050916
-    # if not all(97 <= ord(c) <= 112 for c in ext_id):
-    #     die("Not valid extension ID")
+    if not all(97 <= ord(c) <= 112 for c in ext_id):
+        die("Not valid extension ID")
 
     # Check that python-gobject is available.  This is done because it's hard
     # to see if chrome-mpris2 fails with an import error; you'd need to check
@@ -40,19 +46,24 @@ def main(args):
         die("Your GLib version is too old")
 
     manifest = {
-        "name": "org.mpris.browser_host",
+        "name": "org.mpris.browser_host.debug",
         "description": "A DBus service",
         "path": prog_path,
         "type": "stdio",
-        "allowed_extensions": [
-            ext_id,
+        "allowed_origins": [
+            "chrome-extension://" + ext_id + "/",
         ]
     }
-    manifest_path = os.path.join(MESSAGE_HOSTS, "org.mpris.browser_host.json")
 
-    os.makedirs(MESSAGE_HOSTS, exist_ok=True)
-    with open(manifest_path, "w") as f:
-        json.dump(manifest, f)
+    for browser in BROWSERS:
+        if not os.path.exists(browser):
+            continue
+        message_hosts = os.path.join(browser, "NativeMessagingHosts")
+        manifest_path = os.path.join(message_hosts, "org.mpris.browser_host.debug.json")
+
+        os.makedirs(message_hosts, exist_ok=True)
+        with open(manifest_path, "w") as f:
+            json.dump(manifest, f)
 
 
 if __name__ == "__main__":

@@ -7,3 +7,4 @@ package-lock.json
 docs
 coverage
 karma_html
+dist
