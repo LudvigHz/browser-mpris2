@@ -13,6 +13,7 @@
           "files": [
             "./manual/how_to.md",
             "./manual/youtube.md",
+            "./manual/youtube-music.md",
             "./manual/netflix.md",
             "./manual/soundcloud.md"
           ]

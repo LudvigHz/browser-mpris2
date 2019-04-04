@@ -7,6 +7,7 @@ addons:
     update: true
     packages:
       - jq
+  chrome: stable
 
 cache:
   directories:
@@ -21,10 +22,10 @@ before_script:
 
 script:
   - karma start --single-run --browsers Firefox
+  - ./build.sh $TRAVIS_TAG
 
 before_deploy:
   - ./node_modules/.bin/esdoc
-  - ./build.sh $TRAVIS_TAG
 
 deploy:
   - provider: pages
@@ -36,7 +37,7 @@ deploy:
   - provider: releases
     api_key: $GITHUB_TOKEN
     file_glob: true
-    file: browser-mpris2-*.zip
+    file: dist/*.*
     skip_cleanup: true
     on:
       tags: true

@@ -5,12 +5,12 @@
   "version": "0.2.1",
   "browser_action": {
     "default_title": "Browser MPRIS2",
-    "default_popup": "popup.html"
+    "default_popup": "popup/popup.html"
   },
   "background": {
     "scripts": [
-      "background.js",
-      "updater.js"
+      "background/proxy.js",
+      "background/updater.js"
     ],
     "persistent": false
   },
@@ -20,12 +20,12 @@
         "*://*/*"
       ],
       "js": [
-        "src/browser/main/globals.js",
-        "src/browser/main/player.js",
-        "src/browser/main/carrier.js",
-        "src/browser/main/playback.js",
-        "src/browser/main/host.js",
-        "src/browser/main/page.js"
+        "main/globals.js",
+        "main/player.js",
+        "main/carrier.js",
+        "main/playback.js",
+        "main/host.js",
+        "main/page.js"
       ],
       "run_at": "document_start",
       "all_frames": true
@@ -36,7 +36,7 @@
         "*://youtube.com/*"
       ],
       "js": [
-        "src/providers/youtube.js"
+        "providers/youtube.js"
       ],
       "run_at": "document_start",
       "all_frames": true
@@ -46,7 +46,7 @@
         "*://music.youtube.com/*"
       ],
       "js": [
-        "src/browser/providers/youtube-music.js"
+        "providers/youtube-music.js"
       ],
       "run_at": "document_start",
       "all_frames": true
@@ -56,7 +56,7 @@
         "*://soundcloud.com/*"
       ],
       "js": [
-        "src/browser/providers/soundcloud.js"
+        "providers/soundcloud.js"
       ],
       "run_at": "document_start",
       "all_frames": true
@@ -67,7 +67,7 @@
         "*://*.netflix.com/*"
       ],
       "js": [
-        "src/browser/providers/netflix.js"
+        "providers/netflix.js"
       ],
       "run_at": "document_start",
       "all_frames": true
@@ -77,7 +77,7 @@
         "*://*/*"
       ],
       "js": [
-        "src/browser/init.js"
+        "init.js"
       ],
       "run_at": "document_start",
       "all_frames": true

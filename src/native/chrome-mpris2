@@ -437,7 +437,7 @@ def main():
             player = active_players[tabid]
         except KeyError:
             # Many terrible things can happen to tabs; they can crash or be
-            # discarded.  For these cases out background.js should still inform
+            # discarded.  For these cases out proxy.js should still inform
             # us.  However it may be that that tab has already quit e.g. it may
             # be in YouTube's main page when it crashes.  In these cases we
             # don't want to create a player just to immediately destroy it.
