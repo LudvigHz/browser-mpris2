@@ -56,9 +56,11 @@ echo "Compiled popup files into ${extension}popup/ ✓"
 
 title "Step 6: Manifest"
 # replace version, first and last content script js with base.js and init.js respectively
-cat "src/browser/manifest.json" | \
+cat src/browser/manifest.json | \
     jq '.name = "browser-mpris2"' | \
     jq '.version = "'${version/v/}'"' | \
+    jq '.content_scripts[0].js = ["base.js"]' | \
+	jq '.content_scripts[-1].js = ["init.js"]' \
 	> ${extension}manifest.json
 # replace all instances of src/ with empty string
 echo "Generated ${extension}manifest.json ✓"
@@ -88,7 +90,9 @@ echo "Created release .zip for version $version ✓"
 if [[ "$version" != "v666" ]]; then
     title "Step 3: Package extension"
     /opt/google/chrome/chrome --no-message-box --pack-extension=./dist/extension --pack-extension-key=./extension.pem
+    mv dist/extension.crx dist/browser-mpris2-${version}.crx
     echo "Create release .crx for version $version ✓"
+
 
 #    title "Step 4: Generate update .xml"
 #    echo "<?xml version='1.0' encoding='UTF-8'?>
