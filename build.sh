@@ -11,11 +11,11 @@ version=${1:-v666}
 out="dist/"
 
 if [[ -d ${out} ]]; then
-    rm -r ${out}
+    rm -rf ${out}
 fi
 
-# BUILD EXTENSION
-title "BUILDING EXTENSION"
+# COMPILE EXTENSION
+title "COMPILE EXTENSION"
 
 extension=${out}"extension/"
 lang_out="ECMASCRIPT_2015"
@@ -66,17 +66,24 @@ cat src/browser/manifest.json | \
 echo "Generated ${extension}manifest.json ✓"
 
 
-# BUILD NATIVE
-title "BUILDING NATIVE"
+# COMPILE NATIVE
+title "COMPILE NATIVE"
 native=${out}"native/"
 
 title "Step 1: Copy source files"
-cp -rv "src/native/" "$native"
+mkdir -p ${native}"DEBIAN" && cp -v "src/native/control" ${native}"DEBIAN/"
+mkdir -p ${native}"usr/bin" && cp -v "src/native/chrome-mpris2" ${native}"usr/bin/"
+
+title "Step 2: Make script executable"
+chmod +x ${native}"usr/bin/chrome-mpris2"
 
 
 title "PACKAGE"
 
-title "Step 1: Replace package id"
+title "Step 1: Replace package id and version"
+grep -lR "\$version" dist/ | xargs sed -i 's/$version/'${version/v/}'/g'
+echo "Replaced all occurrences of '\$version' with '"${version/v/}"' ✓"
+
 grep -lR org.mpris.browser_host.debug dist/ | xargs sed -i 's/org.mpris.browser_host.debug/org.mpris.browser_host/g'
 echo "Replaced all occurrences of 'org.mpris.browser_host.debug' with 'org.mpris.browser_host' ✓"
 
@@ -90,9 +97,12 @@ echo "Created release .zip for version $version ✓"
 if [[ "$version" != "v666" ]]; then
     title "Step 3: Package extension"
     /opt/google/chrome/chrome --no-message-box --pack-extension=./dist/extension --pack-extension-key=./extension.pem
-    mv dist/extension.crx dist/browser-mpris2-${version}.crx
+    mv dist/extension.crx ${out}"browser-mpris2-${version}.crx"
     echo "Create release .crx for version $version ✓"
 
+    title "Step 4: Build .deb package"
+    chown root:root ${native}"usr/bin/chrome-mpris2"
+    dpkg -b ${native} ${out}"browser-mpris2-${version}.deb"
 
 #    title "Step 4: Generate update .xml"
 #    echo "<?xml version='1.0' encoding='UTF-8'?>

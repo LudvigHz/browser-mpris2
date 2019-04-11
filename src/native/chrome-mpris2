@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
 import json
+import os
 import struct
 import sys
+from argparse import ArgumentParser
 from functools import partial
 
 from gi.repository import Gio, GLib
@@ -10,6 +12,11 @@ from gi.repository import Gio, GLib
 
 def debug(msg):
     print(msg, file=sys.stderr, flush=True)
+
+
+def die(msg):
+    print(msg, file=sys.stderr)
+    sys.exit(1)
 
 
 def make_streams_binary():
@@ -265,6 +272,7 @@ class MediaPlayer2(DBusService):
                         self._send_msg("SetPosition",
                                        unescape_object_path(trackid[1:]),
                                        position)
+
                 return SetPosition
             return partial(self._send_msg, attr)
         return AttributeError(attr)
@@ -416,8 +424,72 @@ players = {
     "browser": Browser
 }
 
+manifest_common = {
+    "name": "org.mpris.browser_host.debug",
+    "description": "A DBus service",
+    "path": __file__,
+    "type": "stdio"
+}
+
+XDG_CONFIG_HOME = os.environ.get("XDG_CONFIG_HOME", default=os.path.expanduser("~/.config"))
+
+BROWSERS = [
+    os.path.join(XDG_CONFIG_HOME, "chromium"),
+    os.path.join(XDG_CONFIG_HOME, "google-chrome"),
+]
+
+
+def install_firefox(ext_id):
+    firefox_manifest_dir = os.path.expanduser("~/.mozilla/native-messaging-hosts/")
+    firefox_manifest_path = os.path.join(firefox_manifest_dir, "org.mpris.browser_host.debug.json")
+
+    manifest = manifest_common.copy()
+    manifest["allowed_extensions"] = [ext_id]
+    os.makedirs(firefox_manifest_dir, exist_ok=True)
+    with open(firefox_manifest_path, "w") as f:
+        json.dump(manifest, f)
+
+
+def install_chrome(ext_id):
+    # Chrome's extension IDs are in hexadecimal but using a-p, referred
+    # internally as "mpdecimal".            https://stackoverflow.com/a/2050916
+    if not all(97 <= ord(c) <= 112 for c in ext_id):
+        die("Not valid extension ID")
+
+    manifest = manifest_common.copy()
+    manifest["allowed_origins"] = [ext_id]
+
+    for browser in BROWSERS:
+        if not os.path.exists(browser):
+            continue
+        message_hosts = os.path.join(browser, "NativeMessagingHosts")
+        manifest_path = os.path.join(message_hosts, "org.mpris.browser_host.debug.json")
+
+        os.makedirs(message_hosts, exist_ok=True)
+        with open(manifest_path, "w") as f:
+            json.dump(manifest, f)
+
 
 def main():
+    # Before that, Gio couldn't publish DBus objects (introspection bug)
+    if (GLib.MAJOR_VERSION, GLib.MINOR_VERSION) < (2, 46):
+        sys.exit("Your GLib version is too old")
+
+    parser = ArgumentParser("Implements the MPRIS2 interface for Chrome and Firefox.")
+    # parser.add_argument("unused", nargs="*", help="Unused.")
+    parser.add_argument("--init-firefox", help="Install metadata required for Firefox.")
+    parser.add_argument("--init-chrome", help="Install metadata required for Google Chrome & Chromium.")
+
+    args = parser.parse_args()
+
+    if args.init_firefox:
+        install_firefox(args.init_firefox)
+        sys.exit()
+
+    if args.init_chrome:
+        install_chrome(args.init_chrome)
+        sys.exit()
+
     mainloop = GLib.MainLoop()
 
     make_streams_binary()
@@ -479,6 +551,7 @@ def main():
     GLib.io_add_watch(chan, GLib.IOCondition.HUP, lambda *_: mainloop.quit())
 
     mainloop.run()
+
 
 if __name__ == "__main__":
     main()

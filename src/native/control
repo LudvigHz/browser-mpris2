@@ -1,0 +1,9 @@
+Package: chrome-mpris2
+Version: $version
+Architecture: all
+Maintainer: Joaco Campero<juacocampero@gmail.com>
+Installed-Size: 2
+Section: extras
+Priority: optional
+Homepage: https://lt-mayonesa.github.io/browser-mpris2/
+Description: native app for browser MPRIS2 support
