@@ -476,7 +476,7 @@ def main():
         sys.exit("Your GLib version is too old")
 
     parser = ArgumentParser("Implements the MPRIS2 interface for Chrome and Firefox.")
-    # parser.add_argument("unused", nargs="*", help="Unused.")
+    parser.add_argument("unused", nargs="*", help="Unused.")
     parser.add_argument("--init-firefox", help="Install metadata required for Firefox.")
     parser.add_argument("--init-chrome", help="Install metadata required for Google Chrome & Chromium.")
 
