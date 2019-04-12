@@ -457,7 +457,7 @@ def install_chrome(ext_id):
         die("Not valid extension ID")
 
     manifest = manifest_common.copy()
-    manifest["allowed_origins"] = [ext_id]
+    manifest["allowed_origins"] = ['chrome-extension://' + ext_id + '/']
 
     for browser in BROWSERS:
         if not os.path.exists(browser):
