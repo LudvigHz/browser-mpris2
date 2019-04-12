@@ -101,7 +101,7 @@ if [[ "$version" != "v666" ]]; then
     echo "Create release .crx for version $version ✓"
 
     title "Step 4: Build .deb package"
-    chown root:root ${native}"usr/bin/chrome-mpris2"
+    sudo chown root:root ${native}"usr/bin/chrome-mpris2"
     dpkg -b ${native} ${out}"browser-mpris2-${version}.deb"
 
 #    title "Step 4: Generate update .xml"
