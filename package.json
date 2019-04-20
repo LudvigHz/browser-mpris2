@@ -1,0 +1,49 @@
+{
+  "name": "browser-mpris2",
+  "version": "0.3.6",
+  "description": "Implements the MPRIS2 interface for Chrome and Firefox",
+  "main": "src/browser/init.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "esdoc": "esdoc",
+    "build": "./build.sh",
+    "package": "crx pack dist/extension -o dist/browser-mpris2-v666.crx",
+    "test": "karma start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lt-Mayonesa/browser-mpris2.git"
+  },
+  "keywords": [
+    "mpris2",
+    "chrome",
+    "firefox"
+  ],
+  "author": "lt-mayonesa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Lt-Mayonesa/browser-mpris2/issues"
+  },
+  "homepage": "https://lt-mayonesa.github.io/browser-mpris2/",
+  "dependencies": {},
+  "devDependencies": {
+    "crx": "^4.0.1",
+    "documentjs": "^0.5.5",
+    "esdoc": "^1.1.0",
+    "esdoc-ecmascript-proposal-plugin": "^1.0.0",
+    "esdoc-standard-plugin": "^1.0.0",
+    "google-closure-compiler": "^20190301.0.0",
+    "jasmine": "^3.3.1",
+    "jasmine-core": "^3.3.0",
+    "karma": "^4.0.1",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.2",
+    "karma-html-reporter": "^0.2.7",
+    "karma-jasmine": "^2.0.1",
+    "karma-jasmine-html-reporter": "^1.4.0",
+    "web-ext": "^3.0.0"
+  }
+}
