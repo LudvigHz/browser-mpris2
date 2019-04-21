@@ -14,4 +14,4 @@ Out of the box this project has support for `video` and `audio` tags in all site
 
 By extending this projects base classes it is possible to modify the default interaction with each site for specific sites. We call them providers. 
 
-If you would like to contribute with a provider see the [how to](how_to.md) manual.
+If you would like to contribute with a provider see the [how to](manual/how_to.html) manual.

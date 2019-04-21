@@ -1,0 +1,4 @@
+#!/bin/sh
+
+browser-mpris2 --init-chrome "mcakdldkgmlakhcpdmecedogacbagdba"
+browser-mpris2 --init-firefox "browser-mpris2@lt-mayonesa.github.io"

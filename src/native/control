@@ -1,4 +1,4 @@
-Package: chrome-mpris2
+Package: browser-mpris2
 Version: $version
 Architecture: all
 Maintainer: Joaco Campero<juacocampero@gmail.com>

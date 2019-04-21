@@ -72,10 +72,12 @@ native=${out}"native/"
 
 title "Step 1: Copy source files"
 mkdir -p ${native}"DEBIAN" && cp -v "src/native/control" ${native}"DEBIAN/"
-mkdir -p ${native}"usr/bin" && cp -v "src/native/chrome-mpris2" ${native}"usr/bin/"
+cp -v "src/native/postinst" ${native}"DEBIAN/"
+mkdir -p ${native}"usr/bin" && cp -v "src/native/browser-mpris2" ${native}"usr/bin/"
 
-title "Step 2: Make script executable"
-chmod +x ${native}"usr/bin/chrome-mpris2"
+title "Step 2: Make scripts executable"
+chmod +x ${native}"usr/bin/browser-mpris2"
+chmod +x ${native}"DEBIAN/postinst"
 
 
 title "PACKAGE"
@@ -95,28 +97,20 @@ cd ..
 echo "Created release .zip for version $version ✓"
 
 if [[ "$version" != "v666" ]]; then
-    title "Step 3: Package extension"
+    title "Step 3: Package Chrome extension"
     /opt/google/chrome/chrome --no-message-box --pack-extension=./dist/extension --pack-extension-key=./extension.pem
     mv dist/extension.crx ${out}"browser-mpris2-${version}.crx"
     echo "Create release .crx for version $version ✓"
 
-    title "Step 4: Build .deb package"
-    sudo chown root:root ${native}"usr/bin/chrome-mpris2"
-    dpkg -b ${native} ${out}"browser-mpris2-${version}.deb"
+    title "Step 4: Sign Firefox extension"
+    cat package.json | jq '.version = "'${version/v/}'"' > package.tmp.json && mv package.tmp.json package.json
+    npx web-ext sign -s dist/extension -a dist/ --api-key=${MOZ_API_KEY} --api-secret=${MOZ_API_SECRET}
 
-#    title "Step 4: Generate update .xml"
-#    echo "<?xml version='1.0' encoding='UTF-8'?>
-#<gupdate xmlns='https://www.google.com/update2/response' protocol='2.0'>
-#  <app appid='mcakdldkgmlakhcpdmecedogacbagdba'>
-#    <updatecheck codebase='https://github.com/Lt-Mayonesa/browser-mpris2/releases/download/$version/browser-mpris2-$version.crx' version='"${version/v/}"' />
-#  </app>
-#</gupdate>
-#" > "${out}updates.xml";
-#
-#    title "Step 5: Add updated URL"
-#    cat "${extension}manifest.json" | \
-#        jq '. + {update_url: "https://github.com/Lt-Mayonesa/browser-mpris2/releases/download/'${version}'/update.xml"}' \
-#        > ${extension}manifest.json
+    title "Step 5: Build .deb package"
+    sudo chown root:root ${native}"usr/bin/browser-mpris2"
+    dpkg-deb -b ${native} ${out}"browser-mpris2-${version}.deb"
+
+    echo "Created release for version $version successfully! ✓"
 fi
 
 title "DONE ✓"

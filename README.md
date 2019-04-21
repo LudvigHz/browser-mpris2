@@ -19,7 +19,7 @@ Pull requests are welcome.
 ## Installation
 Go to the [latest release](https://github.com/Lt-Mayonesa/browser-mpris2/releases/latest) and download both `.crx` and `.deb` artifacts.
 
-Install the `.deb` file. This will make `chrome-mpris2` from the command line available.
+Install the `.deb` file. This will make `browser-mpris2` from the command line available.
 
 ### for Chrome
 Then, in Chrome, go to `Tools > Extensions` (or [chrome://extensions](chrome://extensions)) and enable `Developer mode`.
@@ -28,9 +28,9 @@ Grab the `.crx` file you downloaded and drop it on the Extensions page (if "Drop
 
 Once the extension loaded copy the extension ID (it should be: `mcakdldkgmlakhcpdmecedogacbagdba`).
 
-Next, open a terminal and run `chrome-mpris2 --init-chrome [EXTENSION_ID]`. ie:
+Next, open a terminal and run `browser-mpris2 --init-chrome [EXTENSION_ID]`. ie:
 ```bash
-chrome-mpris2 --init-chrome mcakdldkgmlakhcpdmecedogacbagdba
+browser-mpris2 --init-chrome mcakdldkgmlakhcpdmecedogacbagdba
 ```
 Profit
 
@@ -44,9 +44,9 @@ Open Firefox and go to [about:debugging#addons](about:debugging#addons).
 
 Click on "Load temporary Add-on" button and select the `manifest.json` from the `extension/` dir of the extracted file.
 
-Next, open a terminal and run `chrome-mpris2 --init-firefox [EXTENSION_ID]`. ie:
+Next, open a terminal and run `browser-mpris2 --init-firefox [EXTENSION_ID]`. ie:
 ```bash
-chrome-mpris2 --init-firefox 0974c166a46e1eeabfa31321730f621ab0362f05@temporary-addon
+browser-mpris2 --init-firefox 0974c166a46e1eeabfa31321730f621ab0362f05@temporary-addon
 ```
 
 Reload the extension and profit.
