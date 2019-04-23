@@ -130,11 +130,7 @@ class Host {
         } else {
             result = this.command(request.method, ...request.args);
         }
-        if (result) {
-            this.return(request.method, result);
-        } else {
-            this.change();
-        }
+        this.return(request.method, result);
     }
 
     /**
