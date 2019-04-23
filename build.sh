@@ -106,7 +106,7 @@ if [[ "$version" != "v666" ]]; then
 
     title "Step 4: Sign Firefox extension"
     cat package.json | jq '.version = "'${version/v/}'"' > package.tmp.json && mv package.tmp.json package.json
-    npx web-ext sign -s ${extension} -a ${out} --api-key=${MOZ_API_KEY} --api-secret=${MOZ_API_SECRET}
+    npx web-ext sign -s ${extension} -a ${out} --api-key=${MOZ_API_KEY} --api-secret=${MOZ_API_SECRET} --id=browser-mpris2@lt-mayonesa.github.io
     mv ${out}*.xpi ${out}"browser-mpris2-${version}-firefox.xpi"
 
     title "Step 5: Build .deb package"
