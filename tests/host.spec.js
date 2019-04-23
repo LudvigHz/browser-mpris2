@@ -99,22 +99,21 @@ describe('Host tests', () => {
           then redirect correctly
           and return a message if expected`,
           [
-              { method: 'Get', redirect: 'get', ret: 1, change: 0, result: 1 },
-              { method: 'Set', redirect: 'set', ret: 0, change: 1 },
-              { method: 'Play', redirect: 'command', ret: 0, change: 1 },
-              { method: 'Pause', redirect: 'command', ret: 0, change: 1 },
-              { method: 'PlayPause', redirect: 'command', ret: 0, change: 1 },
-              { method: 'Stop', redirect: 'command', ret: 0, change: 1 },
-              { method: 'Next', redirect: 'command', ret: 0, change: 1 },
-              { method: 'Previous', redirect: 'command', ret: 0, change: 1 },
-              { method: 'Seek', redirect: 'command', ret: 0, change: 1 },
-              { method: 'SetPosition', redirect: 'command', ret: 0, change: 1 }
+              { method: 'Get', redirect: 'get', ret: 1, result: 1 },
+              { method: 'Set', redirect: 'set', ret: 1 },
+              { method: 'Play', redirect: 'command', ret: 1 },
+              { method: 'Pause', redirect: 'command', ret: 1 },
+              { method: 'PlayPause', redirect: 'command', ret: 1 },
+              { method: 'Stop', redirect: 'command', ret: 1 },
+              { method: 'Next', redirect: 'command', ret: 1 },
+              { method: 'Previous', redirect: 'command', ret: 1 },
+              { method: 'Seek', redirect: 'command', ret: 1 },
+              { method: 'SetPosition', redirect: 'command', ret: 1 }
           ],
           (params) => {
               let spy = spyOn(host, params.redirect);
               spy.and.returnValue(params.result);
               let retSpy = spyOn(host, 'return');
-              let changeSpy = spyOn(host, 'change');
 
               host.messageListener({
                   method: params.method,
@@ -123,7 +122,6 @@ describe('Host tests', () => {
 
               expect(spy).toHaveBeenCalled();
               expect(retSpy).toHaveBeenCalledTimes(params.ret);
-              expect(changeSpy).toHaveBeenCalledTimes(params.change);
           }
         );
     });
