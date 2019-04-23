@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "browser-mpris2-debug",
   "description": "Implements the MPRIS2 interface for Chrome and Firefox",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "browser_specific_settings": {
     "gecko": {
       "id": "browser-mpris2@lt-mayonesa.github.io",

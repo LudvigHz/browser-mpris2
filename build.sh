@@ -1,6 +1,8 @@
 #!/bin/bash
 # Compile all source code into dist/ folder
 
+set -e # exit if any command fails
+
 function title() {
     green="\e[32m"
     fin="\e[0m"
@@ -99,16 +101,17 @@ echo "Created release .zip for version $version ✓"
 if [[ "$version" != "v666" ]]; then
     title "Step 3: Package Chrome extension"
     /opt/google/chrome/chrome --no-message-box --pack-extension=./dist/extension --pack-extension-key=./extension.pem
-    mv dist/extension.crx ${out}"browser-mpris2-${version}.crx"
+    mv ${out}"extension.crx" ${out}"browser-mpris2-${version}-chrome.crx"
     echo "Create release .crx for version $version ✓"
 
     title "Step 4: Sign Firefox extension"
     cat package.json | jq '.version = "'${version/v/}'"' > package.tmp.json && mv package.tmp.json package.json
-    npx web-ext sign -s dist/extension -a dist/ --api-key=${MOZ_API_KEY} --api-secret=${MOZ_API_SECRET}
+    npx web-ext sign -s ${extension} -a ${out} --api-key=${MOZ_API_KEY} --api-secret=${MOZ_API_SECRET}
+    mv ${out}*.xpi ${out}"browser-mpris2-${version}-firefox.xpi"
 
     title "Step 5: Build .deb package"
     sudo chown root:root ${native}"usr/bin/browser-mpris2"
-    dpkg-deb -b ${native} ${out}"browser-mpris2-${version}.deb"
+    dpkg-deb -b ${native} ${out}"browser-mpris2-${version}-native.deb"
 
     echo "Created release for version $version successfully! ✓"
 fi
