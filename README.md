@@ -17,51 +17,38 @@ Pull requests are welcome.
 ![players screenshot](https://raw.githubusercontent.com/Lt-Mayonesa/browser-mpris2/master/screenshot.png)
 
 ## Installation
-Go to the [latest release](https://github.com/Lt-Mayonesa/browser-mpris2/releases/latest) and download both `.crx` and `.deb` artifacts.
+Go to the [latest release](https://github.com/Lt-Mayonesa/browser-mpris2/releases/latest) and download the `.deb` artifact.
 
-Install the `.deb` file. This will make `browser-mpris2` from the command line available.
+Install the `.deb` file. ie:
+```bash
+dpkg -i browser-mpris2-v[latest-version]-native.deb
+```
+This will make `browser-mpris2` from the command line available.
 
 ### for Chrome
-Then, in Chrome, go to `Tools > Extensions` (or [chrome://extensions](chrome://extensions)) and enable `Developer mode`.
+Then, go to `Tools > Extensions` (or [chrome://extensions](chrome://extensions)) and enable `Developer mode`.
 
-Grab the `.crx` file you downloaded and drop it on the Extensions page (if "Drop to install" doesn't show up try reloading the page).
+Download the `.crx` artifact from the [latest release](https://github.com/Lt-Mayonesa/browser-mpris2/releases/latest) and drop it on the Extensions page (if "Drop to install" doesn't show up try reloading the page).
 
-Once the extension loaded copy the extension ID (it should be: `mcakdldkgmlakhcpdmecedogacbagdba`).
-
-Next, open a terminal and run `browser-mpris2 --init-chrome [EXTENSION_ID]`. ie:
-```bash
-browser-mpris2 --init-chrome mcakdldkgmlakhcpdmecedogacbagdba
-```
-Profit
 
 ### for Firefox
-> **Signed .xpi coming soon**.
-> You'll need to repeat this steps every time you start firefox until .xpi
 
-Download `.zip` file from [latest release](https://github.com/Lt-Mayonesa/browser-mpris2/releases/latest) and extract.
+Download the `.xpi` artifact from the [latest release](https://github.com/Lt-Mayonesa/browser-mpris2/releases/latest) and drop it on Firefox.
 
-Open Firefox and go to [about:debugging#addons](about:debugging#addons).
+[Try it](https://www.youtube.com/watch?v=QuoKNZjr8_U) (if the player is not detected try restarting your browser).
 
-Click on "Load temporary Add-on" button and select the `manifest.json` from the `extension/` dir of the extracted file.
-
-Next, open a terminal and run `browser-mpris2 --init-firefox [EXTENSION_ID]`. ie:
-```bash
-browser-mpris2 --init-firefox 0974c166a46e1eeabfa31321730f621ab0362f05@temporary-addon
-```
-
-Reload the extension and profit.
 
 ## Powers
-If on GNOME or similar you should be able to take advantage of your new powers immediately.  Otherwise, you can use something like [playerctl](https://github.com/acrisci/playerctl), perhaps bind it to a key or `XF86AudioPlay` and the like if your keyboard has them.
+If on Cinnamon, GNOME, or similar you should be able to take advantage of your new powers immediately. Otherwise, you can use something like [playerctl](https://github.com/acrisci/playerctl), perhaps bind it to a key or `XF86AudioPlay` and the like if your keyboard has them.
 
 ## Similar Projects
-* [plasma-browser-integration](https://github.com/KDE/plasma-browser-integration)
-  Nothing to envy them now
-* [shwsh/web-mpris2](https://github.com/shwsh/web-mpris2)
-  A port of this extension to Tampermonkey/Greasemonkey (and WebSockets).
+ - [plasma-browser-integration](https://github.com/KDE/plasma-browser-integration)
+ - [shwsh/web-mpris2](https://github.com/shwsh/web-mpris2) A port of [otommod's](https://github.com/otommod/browser-mpris2) extension to Tampermonkey/Greasemonkey (and WebSockets).
 
-## TODO
+## ROADMAP
+ - Cinnamon's "Launch Player" functionality.
+ - Settings: Global & Per Provider
  - Tests per provider
- - Compile `branch: feature/closure-compile` make travis-ci compile the js to dist/
  - Providers:
     - Amazon Music
+    - Google Music
