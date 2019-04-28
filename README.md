@@ -17,6 +17,8 @@ Pull requests are welcome.
 ![players screenshot](https://raw.githubusercontent.com/Lt-Mayonesa/browser-mpris2/master/screenshot.png)
 
 ## Installation
+
+### Install native app
 Go to the [latest release](https://github.com/Lt-Mayonesa/browser-mpris2/releases/latest) and download the `.deb` artifact.
 
 Install the `.deb` file. ie:
@@ -25,13 +27,19 @@ dpkg -i browser-mpris2-v[latest-version]-native.deb
 ```
 This will make `browser-mpris2` from the command line available.
 
-### for Chrome
+> If not on Debian, you can grab the browser-mpris2 script from the `.zip` file. Put it somewhere in your path and then run:
+>
+> for chrome or chromium: `browser-mpris2 --init-chrome "mcakdldkgmlakhcpdmecedogacbagdba"`
+> 
+> for firefox: `browser-mpris2 --init-firefox "browser-mpris2@lt-mayonesa.github.io"`
+
+### Install extension for Chrome
 Then, go to `Tools > Extensions` (or [chrome://extensions](chrome://extensions)) and enable `Developer mode`.
 
 Download the `.crx` artifact from the [latest release](https://github.com/Lt-Mayonesa/browser-mpris2/releases/latest) and drop it on the Extensions page (if "Drop to install" doesn't show up try reloading the page).
 
 
-### for Firefox
+### Install extension for Firefox
 
 Download the `.xpi` artifact from the [latest release](https://github.com/Lt-Mayonesa/browser-mpris2/releases/latest) and drop it on Firefox.
 
