@@ -16,7 +16,8 @@
   "background": {
     "scripts": [
       "background/proxy.js",
-      "background/updater.js"
+      "background/updater.js",
+      "background/commands.js"
     ],
     "persistent": false
   },
@@ -91,5 +92,28 @@
   ],
   "permissions": [
     "nativeMessaging"
-  ]
+  ],
+  "commands": {
+    "Play": {
+      "description": "Play Media"
+    },
+    "Pause": {
+      "description": "Pause Media"
+    },
+    "PlayPause": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Space"
+      },
+      "description": "Play/Pause Media"
+    },
+    "Stop": {
+      "description": "Stop Media"
+    },
+    "Next": {
+      "description": "Next Media"
+    },
+    "Previous": {
+      "description": "Previous Media"
+    }
+  }
 }
