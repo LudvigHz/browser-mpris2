@@ -49,6 +49,15 @@ Download the `.xpi` artifact from the [latest release](https://github.com/Lt-May
 ## Powers
 If on Cinnamon, GNOME, or similar you should be able to take advantage of your new powers immediately. Otherwise, you can use something like [playerctl](https://github.com/acrisci/playerctl), perhaps bind it to a key or `XF86AudioPlay` and the like if your keyboard has them.
 
+### Browser Shortcuts
+The following commands can be configured as browser shortcuts (ie: in chrome go to [chrome://extensions/shortcuts](chrome://extensions/shortcuts))
+ - Play
+ - Pause
+ - Play/Pause
+ - Stop
+ - Next
+ - Previous
+
 ## Similar Projects
  - [plasma-browser-integration](https://github.com/KDE/plasma-browser-integration)
  - [shwsh/web-mpris2](https://github.com/shwsh/web-mpris2) A port of [otommod's](https://github.com/otommod/browser-mpris2) extension to Tampermonkey/Greasemonkey (and WebSockets).
