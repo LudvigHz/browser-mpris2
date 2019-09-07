@@ -141,9 +141,8 @@ class Host {
      * @returns {number|void}
      */
     get (_, propName) {
-        switch (propName) {
-            case MessageProperty.POSITION:
-                return this.playback.getPosition() || 0;
+        if (propName === MessageProperty.POSITION) {
+            return this.playback.getPosition() || 0;
         }
     }
 
