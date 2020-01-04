@@ -31,17 +31,21 @@ class TidalPlayer extends Player {
     }
 
     getLength() {
-      const elm = this.page.elements.duration;
-      return elm
-        ? (elm.textContent.split(':')[0] * 60 + elm.textContent.split(':')[1]) * 1e6
-        : super.getLength()
+      const duration = this.page.elements.duration;
+      if (duration) {
+        const [min, sec] = duration.textContent.split(':')
+        return (parseInt(min) * 60 + parseInt(sec)) * 1e6
+      }
+      return super.getLength()
     }
 
     getPosition() {
       const currentTime = this.page.elements.currentTime;
-      return currentTime
-        ? (currentTime.textContent.split(':')[0] * 60 + currentTime.textContent.split(':')[1]) * 1e6
-        : super.getLength();
+      if (currentTime) {
+        const [min, sec] = currentTime.textContent.split(':')
+        return (parseInt(min) * 60 + parseInt(sec)) * 1e6
+      }
+      return super.getLength();
     }
 
     getUrl() {
