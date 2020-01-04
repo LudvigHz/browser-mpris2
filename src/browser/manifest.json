@@ -110,7 +110,8 @@
       ],
       "exclude_matches": [
         "*://www.google.com/recaptcha/*",
-        "*://google.com/recaptcha/*"
+        "*://google.com/recaptcha/*",
+        "*://mail.goole.com/*"
       ],
       "js": [
         "init.js"

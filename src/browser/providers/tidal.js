@@ -33,15 +33,20 @@ class TidalPlayer extends Player {
     getLength() {
       const elm = this.page.elements.duration;
       return elm
-        ? (elm.textContent.split(':')[0] * 60 + elm.textContent.split(':')[1]) * 1e3
+        ? (elm.textContent.split(':')[0] * 60 + elm.textContent.split(':')[1]) * 1e6
         : super.getLength()
     }
 
     getPosition() {
       const currentTime = this.page.elements.currentTime;
       return currentTime
-        ? (currentTime.textContent.split(':')[0] * 60 + currentTime.textContent.split(':')[1]) * 1e3
+        ? (currentTime.textContent.split(':')[0] * 60 + currentTime.textContent.split(':')[1]) * 1e6
         : super.getLength();
+    }
+
+    getUrl() {
+      const link = this.page.elements.url;
+      return link ? link.href : super.getUrl()
     }
 
 }
@@ -65,6 +70,20 @@ class TidalPlayback extends Playback {
 
     previous() {
         (this.controls.prev && this.controls.prev.click()) || super.previous();
+    }
+
+    play() {
+        !this.activePlayer.isPlaying()
+        && (this.controls.play && this.controls.play.click()) || super.play();
+    }
+
+    pause() {
+        this.activePlayer.isPlaying()
+        && (this.controls.play && this.controls.play.click()) || super.pause()
+    }
+
+    playPause() {
+      (this.controls.play && this.controls.play.click()) || super.playPause()
     }
 
     setShuffle(isShuffle) {
@@ -158,31 +177,50 @@ window.addEventListener('mpris2-setup', function () {
           prev: document.querySelector(BUTTONS_CONTAINER + ' button:nth-child(2)'),
           play: document.querySelector(BUTTONS_CONTAINER + ' button:nth-child(3)'),
           next: document.querySelector(BUTTONS_CONTAINER + ' button:nth-child(4)'),
-          repeat: document.querySelector(BUTTONS_CONTAINER + ' button:nth-child(5)'),
           volumeProgress: document.querySelector('div[class*="volumeSlider"] input')
         };
 
-
-        page.elements = {
-          title: document.querySelector('span[class*="mediaItemTitle"]'),
-          artist: document.querySelector('div[class*="mediaArtists"]'),
-          cover: document.querySelector('figure[class*="mediaImagery"] img'),
-          duration: document.querySelector('time[class*="duration"]'),
-          currentTime: document.querySelector('time[class*="currentTime"]')
+        // We also reset the repeat button, since this might change
+        const setRepeatElement = () => {
+          page.playback.controls.repeat = document.querySelector(
+            BUTTONS_CONTAINER + ' button:nth-child(5)');
+          // We might not be playing from a playlist, in this case the repeat button is
+          // replaced with a block button, which we dont want do click.
+          if (page.playback.controls.repeat.className.startsWith("blockButton")){
+              page.playback.controls.repeat == null;
+          }
 
         }
 
 
+        const setPageElements = () => {
+          page.elements = {
+            title: document.querySelector('span[class*="mediaItemTitle"]'),
+            artist: document.querySelector('div[class*="mediaArtists"]'),
+            cover: document.querySelector('figure[class*="mediaImagery"] img'),
+            duration: document.querySelector('time[class*="duration"]'),
+            currentTime: document.querySelector('time[class*="currentTime"]'),
+            url: document.querySelector('div[class*="playingFrom"] a')
+          }
+        }
+
+        setPageElements();
+        setRepeatElement();
+
         const observer = new MutationObserver(() => {
+          setPageElements();
+          setRepeatElement();
           page.host.change();
         });
 
-        Object.values(page.playback.controls).forEach(control => {
-          observer.observe(control, {
-            attributes: true,
-            childList: true,
-            subtree: true
-          });
+        // We observe all relevant elements to see if we need to update.
+        [...Object.values(page.playback.controls), ...Object.values(page.elements)].forEach(
+          control => {
+            observer.observe(control, {
+              attributes: true,
+              childList: true,
+              subtree: true
+            });
         });
 
 
