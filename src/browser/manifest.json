@@ -96,6 +96,16 @@
     },
     {
       "matches": [
+        "*://listen.tidal.com/*"
+      ],
+      "js": [
+        "providers/tidal.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    },
+    {
+      "matches": [
         "*://*/*"
       ],
       "exclude_matches": [
