@@ -135,7 +135,7 @@ class TidalPlayback extends Playback {
         super.setVolume(volume);
         if (this.controls.volumeProgress) {
             this.controls.volumeProgress.value = volume * 100;
-            this.control.volumeProgress.style =
+            this.controls.volumeProgress.style =
                 '--val:' + volume * 100 + '; --max:100; --min:0;';
         }
     }
@@ -167,8 +167,9 @@ window.addEventListener('mpris2-setup', function() {
         let loaded = false;
         mutations.forEach(mutation => {
             mutation.addedNodes.forEach(n => {
-                if (n.className.startsWith('footerPlayer')) {
+                if (n.className && n.className.startsWith('footerPlayer')) {
                     loaded = true;
+                    playerObserver.disconnect()
                 }
             });
         });
