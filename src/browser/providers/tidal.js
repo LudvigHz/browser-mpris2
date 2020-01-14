@@ -164,17 +164,17 @@ window.addEventListener('mpris2-setup', function() {
      *
      */
     const playerObserver = new MutationObserver(mutations => {
-        let loaded = false;
         mutations.forEach(mutation => {
             mutation.addedNodes.forEach(n => {
                 if (n.className && n.className.startsWith('footerPlayer')) {
-                    loaded = true;
+                    initPage()
                     playerObserver.disconnect()
                 }
             });
         });
+    })
 
-        if (loaded) {
+      const initPage = () => {
             const BUTTONS_CONTAINER = 'div[class*="playbackControls"]';
 
             page.playback.controls = {
@@ -258,7 +258,6 @@ window.addEventListener('mpris2-setup', function() {
                 page.host.change()
             );
         }
-    });
 
     playerObserver.observe(document, {
         childList: true,
